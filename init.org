@@ -41,8 +41,8 @@
 		("Superwichtig heute!" (make-current-item-top-priority-today))
 		("Das kann auch morgen" (schedule-current-item-for-tomorrow))
 		("Das kann auch übermorgen" (schedule-current-item-for-day-after-tomorrow))
-		("Ab ins Archiv damit" (set-current-item-with-archiv-tag))
 		("Zwei Tage später" (schedule-current-item-two-days-later))
+		("Ab ins Archiv damit" (set-current-item-with-archiv-tag))
 	)
 )
 #+end_src
