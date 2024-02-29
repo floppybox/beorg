@@ -1,0 +1,41 @@
+* Fonts
+#+begin_src scheme
+(set! repl-font "Menlo 18")
+(set! editor-font "Menlo 18")
+#+end_src
+
+* Starting beorg on a specific tab
+#+begin_src scheme
+(set! ui-start-tab "agenda")
+#+end_src
+
+* Custom TODO filters
+#+begin_src scheme
+(filter-add "Top Priority" (lambda (item) (string=? (item-priority item) "A")))
+#+end_src
+
+* Adding functionality to the item editor
+#+begin_src scheme
+(define (set-current-item-with-archiv-tag) (set-current-item-tags! '("Archiv")))
+(define (schedule-current-item-for-day-after-tomorrow) (begin (set-current-item-scheduled! (date-adjust (current-date) 2 'days))))
+(define (schedule-current-item-two-days-later) (begin (set-current-item-scheduled! (date-adjust (item-scheduled current-item) 2 'days))))
+(set! item-longpress-menu 
+	'(
+		("Superwichtig heute!" (make-current-item-top-priority-today))
+		("Das kann auch morgen" (schedule-current-item-for-tomorrow))
+		("Das kann auch übermorgen" (schedule-current-item-for-day-after-tomorrow))
+		("Ab ins Archiv damit" (set-current-item-with-archiv-tag))
+		("Zwei Tage später" (schedule-current-item-two-days-later))
+	)
+)
+(set! item-editor-menu
+	'(
+		("Merk dir wo ich gerade bin" (add-location-to-current-item))
+		("Weg mit dem Datum" (remove-all-dates-from-current-item))
+		("Superwichtig heute!" (make-current-item-top-priority-today))
+		("Das kann auch übermorgen" (schedule-current-item-for-day-after-tomorrow))
+		("Das kann auch morgen" (schedule-current-item-for-tomorrow))
+		("Zwei Tage später" (schedule-current-item-two-days-later))
+	)
+)
+#+end_src
